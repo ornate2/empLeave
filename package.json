@@ -8,12 +8,14 @@
   "dependencies": {
     "@sap/cds": "^7",
     "@sap/cds-hana": "^2",
+    "@sap/hana-client": "^2.19.21",
     "@sap/xssec": "^3",
     "express": "^4"
   },
   "devDependencies": {
     "@cap-js/sqlite": "^1",
     "@sap/cds-dk": "^7",
+    "@sap/hdi-deploy": "4.9.2",
     "@sap/ux-specification": "^1.120.5"
   },
   "scripts": {
@@ -24,6 +26,9 @@
     "requires": {
       "auth": "mocked",
       "db": "hana"
+    },
+    "hana": {
+      "deploy-format": "hdbtable"
     }
   }
 }
