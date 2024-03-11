@@ -2,7 +2,7 @@
 	"selectedKey": "page2",
 	"navigation": [
 		{
-			"title": "Employee",
+			"title": "Root Item",
 			"icon": "sap-icon://employee",
 			"expanded": true,
 			"key": "root1",

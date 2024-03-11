@@ -20,7 +20,8 @@
   },
   "scripts": {
     "start": "cds-serve",
-    "watch-employeedashboard": "cds watch --open employeedashboard/webapp/index.html?sap-ui-xx-viewCache=false"
+    "watch-employeedashboard": "cds watch --open employeedashboard/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-dashboard": "cds watch --open dashboard/webapp/index.html?sap-ui-xx-viewCache=false"
   },
   "cds": {
     "requires": {
