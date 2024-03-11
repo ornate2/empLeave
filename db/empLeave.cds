@@ -52,6 +52,8 @@ entity LeaveBalance : cuid, managed {
 
 }
 
+
+
 entity Status : CodeList {
 key code: String enum {
     new = 'N';

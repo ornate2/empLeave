@@ -37,4 +37,14 @@ service LeaveManagementService @(requires: 'authenticated-user') {
 
   @readonly
   entity Employees as projection on empLeave.Employee;
+
+  // @cds.persistence.exists
+ @cds.persistence.exists
+entity LoggedInUser {
+    fullName : String;
+    userRole : String;
+}
+  
+
+
 }
