@@ -91,11 +91,11 @@
 			</FlexBox>
 			</VBox>
 
-	<Carousel class="sapUiContentPadding" loop="true">
-		<Image src="https://port4004-workspaces-ws-mthxm.us10.trial.applicationstudio.cloud.sap/employeedashboard/webapp/images/banner1.jpg" alt="Example picture of speakers" />
-		<Image src="https://port4004-workspaces-ws-mthxm.us10.trial.applicationstudio.cloud.sap/employeedashboard/webapp/images/banner2.jpg" alt="Example picture of spotlight" />
-		<Image src="https://port4004-workspaces-ws-mthxm.us10.trial.applicationstudio.cloud.sap/employeedashboard/webapp/images/banner3.jpg" alt="Example picture of screw" />
-	</Carousel>
+<Button
+			text="Apply Leave"
+			press=".onEscapePreventDialogPress"
+			class="sapUiSmallMarginBottom btn-one"
+			ariaHasPopup="Dialog" />
 					
 <Table>
     <columns>
