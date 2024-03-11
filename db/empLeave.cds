@@ -3,7 +3,6 @@ namespace app.empLeave;
 using { cuid, managed, sap.common.CodeList } from '@sap/cds/common';
 
 entity Employee :cuid, managed { 
-key ID        : UUID;
 firstName     : String;
 lastName      : String;
 name          : String = firstName || ' ' || lastName;
@@ -12,13 +11,11 @@ phone         : PhoneNumber;
 }
 
 entity LeaveType :cuid , managed{
-  key LeaveTypeID : Integer;
   LeaveTypeName  : String;
   Description    : String;
 }
 
 entity LeaveRequest : cuid , managed{
-  key LeaveRequestID : Integer;
   Employee         : Association to Employee;
   LeaveType        : Association to LeaveType;
   StartDate        : DateTime;
@@ -39,18 +36,16 @@ entity LeaveRequest : cuid , managed{
 }
 
 entity Manager : cuid, managed{
-  key ManagerID : Integer;
   Employee    : Association to Employee;
 }
 
 entity HR  : cuid, managed{
-  key HRID : Integer;
   Employee : Association to Employee;
+  Manager  : Association to Manager
 }
 
 entity LeaveBalance : cuid, managed {  
 
-    key EmployeeID : Integer;
   Employee      : Association to Employee;
   LeaveType     : Association to LeaveType;
   Balance       : Integer; 

@@ -24,11 +24,15 @@ service LeaveManagementService @(requires: 'authenticated-user') {
       to: ['Manager']
     },
     {
-      grant: ['READ'],
+      grant: ['READ', 'UPDATE'],
       to: ['HR']
     }
   ])as projection on empLeave.LeaveRequest;
+
+  @readonly
   entity Manager as projection on empLeave.Manager;
+
+  @readonly
   entity HR as projection on empLeave.HR
 
   @readonly
