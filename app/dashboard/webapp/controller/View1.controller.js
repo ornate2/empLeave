@@ -1,118 +1,69 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller"
-],
-    /**
-     * @param {typeof sap.ui.core.mvc.Controller} Controller
-     */
-    function (Controller) {
-        "use strict";
+    "sap/ui/core/mvc/Controller",
+    "sap/ui/core/Fragment"
+], function(Controller, Fragment) {
+    "use strict";
 
-        return Controller.extend("dashboard.controller.View1", {
-            onInit: function () {
-
-            },
-            onEscapePreventDialogPress: function () {
-                if (!this.oEscapePreventDialog) {
-                    // Create a new Select control
-                    var oSelect = new sap.m.Select({
-                        class: "sapUiSmallMarginEnd",
-                        valueState: "Success",
-                        items: [
-                            new sap.ui.core.Item({
-                                icon: "sap-icon://meal",
-                                text: "Casual Leave (CL)",
-                                selected: true
-                            }),
-                            new sap.ui.core.Item({
-                                icon: "sap-icon://meal",
-                                text: "Sick leave (SL)"
-                            }),
-                            new sap.ui.core.Item({
-                                icon: "sap-icon://meal",
-                                text: "Leave without pay (LWP)"
-                            }),
-                            new sap.ui.core.Item({
-                                icon: "sap-icon://meal",
-                                text: "Paternity leave (PL)"
-                            }),
-                            new sap.ui.core.Item({
-                                icon: "sap-icon://meal",
-                                text: "Compensatory Off"
-                            })
-                        ]
-                    });
-            
-                    // Create a new Grid control
-                    var oGrid = new sap.ui.layout.Grid({
-                        defaultSpan: "XL2 L3 M4 S6",
-                        content: [
-                            new sap.m.Text({ 
-                                text: "Select a Leave:",
-                                styleClass: "sapUiSmallMargin" // Setting the style class directly
-                            }),
-                            oSelect,
-                            new sap.m.Text({ 
-                                text: "Start Date:",
-                                styleClass: "sapUiSmallMargin" // Setting the style class directly
-                            }),
-                            new sap.m.DatePicker({
-                                valueFormat: "yyyy-MM-dd",
-                                displayFormat: "short"
-                            }),
-                            new sap.m.Text({ 
-                                text: "End Date:",
-                                styleClass: "sapUiSmallMargin" // Setting the style class directly
-                            }),
-                            new sap.m.DatePicker({
-                                valueFormat: "yyyy-MM-dd",
-                                displayFormat: "short"
-                            }),
-                            new sap.m.Text({ 
-                                text: "Reason for Leave:",
-                                styleClass: "sapUiSmallMargin" // Setting the style class directly
-                            }),
-                            new sap.m.TextArea({
-                                placeholder: "Enter reason for leave"
-                            })
-                        ]
-                    });
-            
-                    // Create buttons for the dialog
-                    var oCloseButton = new sap.m.Button({
-                        text: "Close",
-                        press: function () {
-                            this.oEscapePreventDialog.close();
-                        }.bind(this)
-                    });
-            
-                    var oSubmitButton = new sap.m.Button({
-                        text: "Submit",
-                        press: function () {
-                            // Display message box on successful submission
-                            sap.m.MessageBox.success("Leave applied successfully and Pending for approval", {
-                                title: "Success",
-                                onClose: function () {
-                                    // You can add any logic you want to execute after the message box is closed
-                                }
-                            });
-                            this.oEscapePreventDialog.close(); // Close the dialog after successful submission
-                        }.bind(this)
-                    });
-            
-                    // Create a new Dialog control
-                    this.oEscapePreventDialog = new sap.m.Dialog({
-                        title: "Apply Leave",
-                        content: oGrid,
-                        buttons: [oCloseButton, oSubmitButton], // Adding both Close and Submit buttons
-                        escapeHandler: function (oPromise) {
-                            // Your existing escapeHandler logic remains unchanged
-                        }.bind(this)
-                    });
-            
-                    this.oEscapePreventDialog.open();
-                }
+    return Controller.extend("dashboard.controller.View1", {
+        onApplyLeavePress: function() {
+            if (!this._oLeaveDialog) {
+                Fragment.load({
+                    name: "dashboard.view.fragment.ApplyLeave",
+                    controller: this
+                }).then(function(oFragment) {
+                    this._oLeaveDialog = oFragment;
+                    this.getView().addDependent(this._oLeaveDialog);
+                    this._oLeaveDialog.open();
+                }.bind(this));
+            } else {
+                this._oLeaveDialog.open();
             }
-    
-        });
-    });
+        },
 
+        onClose: function() {
+            if (this._oLeaveDialog) {
+                this._oLeaveDialog.close();
+            }
+        },
+
+        onSubmit: function() {
+            // Here you can handle the submit action
+            // For example, you can collect the data from the fragment controls
+            var oLeaveDialog = this._oLeaveDialog;
+            var oSelect = oLeaveDialog.getContent()[0].getContent()[1];
+            var oStartDatePicker = oLeaveDialog.getContent()[0].getContent()[3];
+            var oEndDatePicker = oLeaveDialog.getContent()[0].getContent()[5];
+            var oReasonTextArea = oLeaveDialog.getContent()[0].getContent()[7];
+
+            var oSelectedLeave = oSelect.getSelectedItem();
+            var sLeaveType = oSelectedLeave ? oSelectedLeave.getText() : "";
+            var sStartDate = oStartDatePicker.getValue();
+            var sEndDate = oEndDatePicker.getValue();
+            var sReason = oReasonTextArea.getValue();
+
+            // Here you can proceed to submit the data, e.g., sending it to the backend or performing any other action
+            // For now, let's just log the data
+            console.log("Leave Type:", sLeaveType);
+            console.log("Start Date:", sStartDate);
+            console.log("End Date:", sEndDate);
+            console.log("Reason:", sReason);
+
+            // Finally, close the dialog
+            this.onClose();
+        },
+        onSubmit: function () {
+            // Display a success message box
+            sap.m.MessageBox.success("Leave applied successfully and Pending for approval", {
+                title: "Success",
+                onClose: function () {
+                    // Logic to execute after the message box is closed
+                }
+            });
+        
+            // Close the dialog
+            if (this._oLeaveDialog) {
+                this._oLeaveDialog.close();
+            }
+        },
+    });
+});

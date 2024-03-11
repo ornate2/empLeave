@@ -25,7 +25,7 @@
                 width="auto"
                 class="sapUiResponsiveMargin"
             >
-                <core:Fragment fragmentName="dashboard.view.fragment.HR" />
+                <core:Fragment fragmentName="dashboard.view.fragment.ApplyLeave" />
             </Panel>
             <Panel
                 width="auto"

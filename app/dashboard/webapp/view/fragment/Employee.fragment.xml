@@ -91,10 +91,8 @@
 			</FlexBox>
 			</VBox>
 
-<Button
-			text="Apply Leave"
-			press=".onEscapePreventDialogPress"
-			class="sapUiSmallMarginBottom btn-one"
+
+            <Button text="Apply Leave" press="onApplyLeavePress" class="sapUiSmallMarginBottom btn-one"
 			ariaHasPopup="Dialog" />
 					
 <Table>
