@@ -1,1 +1,0 @@
-ID,LeaveRequestID,createdAt,createdBy,modifiedAt,modifiedBy,Employee_ID,LeaveType_ID,LeaveType_LeaveTypeID,StartDate,EndDate,Reason,urgency_code,Status_code,SubmissionDate,ManagerApproval,ManagerComment,HRComment

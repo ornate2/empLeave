@@ -8,6 +8,7 @@
       "name": "$XSAPPNAME.Manager",
       "description": "Manager"
     },
+    
     {
       "name": "$XSAPPNAME.HR",
       "description": "HR"
